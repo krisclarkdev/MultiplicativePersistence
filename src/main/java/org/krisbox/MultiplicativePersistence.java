@@ -65,11 +65,19 @@ public class MultiplicativePersistence extends Application {
                 BigInteger i = new BigInteger(startingNumber.getText());
                 BigInteger j = new BigInteger(endingNumber.getText());
 
+                submit.setText("Running");
+                submit.setDisable(true);
+                clear.setDisable(true);
+
                 while(i.compareTo(j) == -1) {
                     i = i.add(new BigInteger("1"));
 
                     new TestNumber().startTest(i, Integer.parseInt(targetSteps.getText()), resultsList);
                 }
+
+                submit.setText("Submit");
+                submit.setDisable(false);
+                clear.setDisable(false);
             }
         });
 
