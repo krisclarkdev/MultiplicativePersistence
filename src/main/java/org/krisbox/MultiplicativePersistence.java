@@ -94,6 +94,8 @@ public class MultiplicativePersistence extends Application {
                 BigInteger i = new BigInteger(startingNumber.getText());
                 BigInteger j = new BigInteger(endingNumber.getText());
 
+                resultsList.getItems().clear();
+
                 submit.setText("Running");
                 submit.setDisable(true);
                 clear.setDisable(true);
