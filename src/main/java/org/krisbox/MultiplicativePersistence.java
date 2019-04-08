@@ -14,6 +14,8 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.math.BigInteger;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class MultiplicativePersistence extends Application {
     @Override
@@ -69,11 +71,17 @@ public class MultiplicativePersistence extends Application {
                 submit.setDisable(true);
                 clear.setDisable(true);
 
-                while(i.compareTo(j) == -1) {
-                    i = i.add(new BigInteger("1"));
+                ExecutorService executor= Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
 
-                    new TestNumber().startTest(i, Integer.parseInt(targetSteps.getText()), resultsList);
+                try{
+                    while(i.compareTo(j) == -1) {
+                        i = i.add(new BigInteger("1"));
+                        executor.execute(new TestNumber(i, Integer.parseInt(targetSteps.getText()), resultsList));
+                    }
+                }catch(Exception ex){
+                    ex.printStackTrace();
                 }
+                executor.shutdown();
 
                 submit.setText("Submit");
                 submit.setDisable(false);

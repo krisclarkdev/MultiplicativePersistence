@@ -5,12 +5,8 @@ import javafx.scene.control.ListView;
 
 import java.math.BigInteger;
 
-public class TestNumber {
-    public TestNumber() {
-
-    }
-
-    public void startTest(BigInteger n, int target, ListView<String> resultList) {
+public class TestNumber implements Runnable {
+    public TestNumber(BigInteger n, int target, ListView<String> resultList) {
         multiply(n, n, 0, target, resultList);
     }
 
@@ -40,5 +36,10 @@ public class TestNumber {
         }else {
             return "Number " + n + "\tSteps " + step;
         }
+    }
+
+    @Override
+    public void run() {
+
     }
 }
