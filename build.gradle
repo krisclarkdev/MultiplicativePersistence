@@ -12,3 +12,14 @@ repositories {
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.12'
 }
+
+jar {
+    manifest {
+        attributes 'Main-Class': 'org.krisbox.MultiplicativePersistence'
+        attributes 'Author': 'Kristopher Clark'
+        attributes 'Version': '1.0'
+        attributes 'License': 'GNU GPL v3.0'
+        attributes 'Website': 'https://www.krisbox.org'
+        attributes 'Repository': 'https://github.com/krisclarkdev/MultiplicativePersistence'
+    }
+}
