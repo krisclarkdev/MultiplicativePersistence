@@ -97,30 +97,39 @@ public class MultiplicativePersistence extends Application {
                     alert.setHeaderText("All fields required");
                     alert.showAndWait();
                 }else{
+
                     BigInteger i = new BigInteger(startingNumber.getText());
                     BigInteger j = new BigInteger(endingNumber.getText());
 
-                    resultsList.getItems().clear();
+                    if(j.compareTo(i) == 1) {
+                        resultsList.getItems().clear();
 
-                    submit.setText("Running");
-                    submit.setDisable(true);
-                    clear.setDisable(true);
+                        submit.setText("Running");
+                        submit.setDisable(true);
+                        clear.setDisable(true);
 
-                    ExecutorService executor= Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
+                        ExecutorService executor= Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
 
-                    try{
-                        while(i.compareTo(j) == -1) {
-                            i = i.add(new BigInteger("1"));
-                            executor.execute(new TestNumber(i, Integer.parseInt(targetSteps.getText()), resultsList));
+                        try{
+                            while(i.compareTo(j) == -1) {
+                                i = i.add(new BigInteger("1"));
+                                executor.execute(new TestNumber(i, Integer.parseInt(targetSteps.getText()), resultsList));
+                            }
+                        }catch(Exception ex){
+                            ex.printStackTrace();
                         }
-                    }catch(Exception ex){
-                        ex.printStackTrace();
-                    }
-                    executor.shutdown();
+                        executor.shutdown();
 
-                    submit.setText("Submit");
-                    submit.setDisable(false);
-                    clear.setDisable(false);
+                        submit.setText("Submit");
+                        submit.setDisable(false);
+                        clear.setDisable(false);
+                    }else{
+                        Alert alert = new Alert(Alert.AlertType.ERROR);
+                        alert.setTitle("ERROR");
+
+                        alert.setHeaderText("Ending number must be larger than starting number");
+                        alert.showAndWait();
+                    }
                 }
             }
         });
