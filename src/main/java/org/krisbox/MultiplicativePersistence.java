@@ -18,6 +18,33 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class MultiplicativePersistence extends Application {
+    public class NumberTextField extends TextField
+    {
+
+        @Override
+        public void replaceText(int start, int end, String text)
+        {
+            if (validate(text))
+            {
+                super.replaceText(start, end, text);
+            }
+        }
+
+        @Override
+        public void replaceSelection(String text)
+        {
+            if (validate(text))
+            {
+                super.replaceSelection(text);
+            }
+        }
+
+        private boolean validate(String text)
+        {
+            return text.matches("[0-9]*");
+        }
+    }
+
     @Override
     public void start(Stage primaryStage) {
         GridPane grid = new GridPane();
@@ -25,19 +52,19 @@ public class MultiplicativePersistence extends Application {
         grid.setVgap(5);
         grid.setHgap(5);
 
-        final TextField startingNumber = new TextField();
+        final NumberTextField startingNumber = new NumberTextField();
         startingNumber.setPromptText("Enter starting number");
         startingNumber.setPrefColumnCount(10);
         startingNumber.getText();
         GridPane.setConstraints(startingNumber, 0, 0);
         grid.getChildren().add(startingNumber);
 
-        final TextField endingNumber = new TextField();
+        final NumberTextField endingNumber = new NumberTextField();
         endingNumber.setPromptText("Enter ending number");
         GridPane.setConstraints(endingNumber, 0, 1);
         grid.getChildren().add(endingNumber);
 
-        final TextField targetSteps = new TextField();
+        final NumberTextField targetSteps = new NumberTextField();
         targetSteps.setPrefColumnCount(15);
         targetSteps.setPromptText("Enter target steps");
         GridPane.setConstraints(targetSteps, 0, 2);
